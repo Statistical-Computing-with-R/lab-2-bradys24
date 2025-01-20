@@ -1,10 +1,12 @@
 ---
-title: "Challenge 2: Spicing things up with ggplot2"
+title: "Challenge 2: Spicing things up with ggplot2, Ridge Plots"
 author: "Brady Schroth"
 format: html
 editor: source
 embed-resources: true
 code-tools: true
+echo: true
+code-fold: true
 ---
 
 For this week's Challenge, you will have three different options to explore.
@@ -55,30 +57,28 @@ dim(surveys)
 
 ```{r}
 #| eval: false
-#| label: boxplot
+#| label: ridge plot
 
-ggplot(data = surveys,
-       mapping = aes(x = species,
-                     y = weight)) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter( color = "green", alpha = 0.1) +
-  labs( x = "Species",
-        y = "Weight (g)") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggplot(data = surveys, 
+       mapping = aes(x = weight, y = species)) +
+  geom_density_ridges(color = "green",
+                      scale = .8) +
+  labs(x = "Weight (g)",
+       y = "Species")
 ```
 
 
 ```{r}
-#| label: rotated-boxplot
+#| label: rotated ridge plot
 #| eval: false
 
-ggplot(data = surveys,
-       mapping = aes(x = species,
-                     y = weight)) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter( color = "green", alpha = 0.1) +
-  labs( x = "Species",
-        y = "Weight (g)") +
+ggplot(data = surveys, 
+       mapping = aes(x = weight, y = species)) +
+  geom_density_ridges(color = "green",
+                      scale = .8) +
+  labs(x = "Weight (g)",
+       y = "Species") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   coord_flip()
 ```
 
