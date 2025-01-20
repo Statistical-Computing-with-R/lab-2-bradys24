@@ -158,10 +158,10 @@ ggplot(data = surveys,
                      y = hindfoot_length)) +
   geom_point(alpha = .1) +
   facet_wrap(~species) +
-  labs(x = "Weight",
+  labs(x = "Weight (g)",
        y = "", 
        title = "Comparison Between Hindfoot Length and Weight by Species",
-       subtitle = "Y - Hindfoot Length")
+       subtitle = "Y - Hindfoot Length (mm)")
 ```
 
 We can see there are **a lot** of points plotted on top of each other. Let's try and modify this plot to extract more information from it.
@@ -190,8 +190,17 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 ## Boxplots
 
 ```{r}
+#| eval: false
 #| label: boxplot
 
+ggplot(data = surveys,
+       mapping = aes(x = species,
+                     y = weight)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter( color = "green", alpha = 0.1) +
+  labs( x = "Species",
+        y = "Weight (g)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
@@ -238,6 +247,16 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 
 ```{r}
 #| label: rotated-boxplot
+#| eval: false
+
+ggplot(data = surveys,
+       mapping = aes(x = species,
+                     y = weight)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter( color = "green", alpha = 0.1) +
+  labs( x = "Species",
+        y = "Weight (g)") +
+  coord_flip()
 
 ```
 
