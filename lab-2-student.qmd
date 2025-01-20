@@ -62,6 +62,7 @@ In the code chunk below, load in the packages necessary for your analysis. You s
 
 ```{r}
 #| label: setup
+library(tidyverse)
 
 ```
 
@@ -102,14 +103,20 @@ represent:
 ```{r}
 #| label: load-data
 
+surveys <- read_csv("surveys.csv")
+dim(surveys)
 ```
 
 **2. What are the dimensions (# of rows and columns) of these data?**
 
+30463 rows and 15 columns
 <!-- You can either write code here or in the code chunk for #1, but I **must** see the code you used to address this question!  -->
 
 **3. What are the data types of the variables in this dataset?**
 
+character  : species_id, sex, day_of_week, plot_type, genus, species...
+double  : record_id, month, day, year, plot_id, hindfoot_length, ...
+date : date
 <!-- You can either write code here or in the code chunk for #1, but I **must** see the code you used to address this question!  -->
 
 # Exploratory Data Analysis with **`ggplot2`**
@@ -124,9 +131,15 @@ for different types of plots:
 #| eval: false
 #| label: ggplot-template-code
 
-ggplot(data = <DATA>,
-       mapping = aes(<VARIABLE MAPPINGS>)) +
-  <GEOM_FUNCTION>()
+ggplot(data = surveys,
+       mapping = aes(x = weight,
+                     y = hindfoot_length)) +
+  geom_point(alpha = .1) +
+  facet_wrap(~species) +
+  labs(x = "Weight",
+       y = "", 
+       title = "Comparison Between Hindfoot Length and Weight by Species",
+       subtitle = "Y - Hindfoot Length")
 ```
 
 Let's get started!
@@ -137,8 +150,18 @@ Let's get started!
 the $x$-axis) and `hindfoot_length` (on the $y$-axis).**
 
 ```{r}
+#| eval: false
 #| label: scatterplot
 
+ggplot(data = surveys,
+       mapping = aes(x = weight,
+                     y = hindfoot_length)) +
+  geom_point(alpha = .1) +
+  facet_wrap(~species) +
+  labs(x = "Weight",
+       y = "", 
+       title = "Comparison Between Hindfoot Length and Weight by Species",
+       subtitle = "Y - Hindfoot Length")
 ```
 
 We can see there are **a lot** of points plotted on top of each other. Let's try and modify this plot to extract more information from it.
